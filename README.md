@@ -11,3 +11,5 @@ other players after you click it.
 So we can not only use it in games now. 
 
 We can extend reality to more vast virtual world.(Yeah! its a AR application in some degree!)
+
+Finally the project is under development, so it's still unavailable, please don't download and use it!
