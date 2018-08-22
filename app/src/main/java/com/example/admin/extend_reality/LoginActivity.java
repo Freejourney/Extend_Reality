@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends Activity implements View.OnClickListener{
 
@@ -35,11 +39,30 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_signin:
-
+                signin();
+                finish();
                 break;
             case R.id.tv_signup:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
                 break;
         }
+    }
+
+    private void signin() {
+        User user = new User();
+        user.setUsername(et_username.getText().toString());
+        user.setPassword(et_passwd.getText().toString());
+        user.login(new SaveListener<Object>() {
+            @Override
+            public void done(Object o, BmobException e) {
+                if (e == null) {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+                }
+            }
+        });
     }
 }
